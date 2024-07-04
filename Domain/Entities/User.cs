@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
     public abstract class User  //porque abstract?
     {
-        //To do Alan Consultar
-
         public int Id { get; set; }
 
+        [Required]
         [Column(TypeName = "nvarchar(100)")]
         public string FullName { get; set; }
 
-        [Required]  // porque?
+        [Required]
         [Column(TypeName = "nvarchar(100)")]
         public string Email { get; set; }
 
-        [Column(TypeName = "nvarchar(100)")]
+        [Required]
+        [Column(TypeName = "nvarchar(32)")]
         public string Password { get; set; }
-        
     }
 }
