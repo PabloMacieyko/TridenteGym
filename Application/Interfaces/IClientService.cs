@@ -5,13 +5,13 @@ namespace Application.Interfaces
 {
     public interface IClientService
     {
-        public Client Add(Client client);
+        public Registration Add(Registration client);
 
-        public Client Get(int id);
+        public Registration Get(int id);
 
-        public ICollection<Client> GetAll();
+        public ICollection<Registration> GetAll();
 
-        public Client Update(Client client);
+        public Registration Update(Registration client);
 
         public void Delete(int id);
     }

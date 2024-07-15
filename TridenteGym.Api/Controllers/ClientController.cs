@@ -16,7 +16,7 @@ namespace TridenteGym.Api.Controllers
 
         // GET -> https://IP/client/getall
         [HttpGet("GetAll")]
-        public IEnumerable<Client> GetAll()
+        public IEnumerable<Registration> GetAll()
         {
             return _clientService.GetAll();
         }
