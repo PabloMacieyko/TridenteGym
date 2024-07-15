@@ -5,13 +5,13 @@ namespace Application.Interfaces
 {
     public interface IOwnerService
     {
-        public Owner Add(Owner owner);
+        public Administrator Add(Administrator owner);
 
-        public Owner Get(int id);
+        public Administrator Get(int id);
 
-        public ICollection<Owner> GetAll();
+        public ICollection<Administrator> GetAll();
 
-        public Owner Update(Owner owner);
+        public Administrator Update(Administrator owner);
 
         public void Delete(int id);
     }

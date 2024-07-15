@@ -1,7 +1,7 @@
 ﻿
 namespace Domain.Entities
 {
-    public class Owner : User
+    public class Administrator : User
     {
     }
 }

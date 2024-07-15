@@ -1,16 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
+﻿
 namespace Domain.Entities; 
 public class Activity
 {
     public int Id { get; set; }
-
-    [Column(TypeName = "nvarchar(100)")]
-    public string Name { get; set; }
-
-    [Column(TypeName = "nvarchar(4000)")]
-    public string Description { get; set; }
-
-    public double Price { get; set; }
-
+    public string Name { get; set; } = string.Empty;
+    public int CupoMax { get; set; }
+    public int CupoDisp {  get; set; }
 }
