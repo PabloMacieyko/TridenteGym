@@ -4,13 +4,13 @@ namespace Domain.Interfaces
 {
     public interface IClientRepository
     {
-        public Registration Add(Registration client);
+        public Client Add(Client client);
 
-        public Registration Get(int id);
+        public Client Get(int id);
 
-        public ICollection<Registration> GetAll();
+        public IList<Client> GetAll();
 
-        public Registration Update(Registration client);
+        public Client Update(int id, Client client);
 
         public void Delete(int id);
     }

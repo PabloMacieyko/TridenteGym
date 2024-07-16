@@ -1,17 +1,16 @@
-﻿
-using Domain.Entities;
+﻿using Application.Dto_s;
 
 namespace Application.Interfaces
 {
     public interface IClientService
     {
-        public Registration Add(Registration client);
+        public ClientDto Add(ClientDto client);
 
-        public Registration Get(int id);
+        public ClientDto GetById(int id);
 
-        public ICollection<Registration> GetAll();
+        public ICollection<ClientDto> GetAll();
 
-        public Registration Update(Registration client);
+        public ClientDto Update(ClientDto client);
 
         public void Delete(int id);
     }

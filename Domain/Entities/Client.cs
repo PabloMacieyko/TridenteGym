@@ -1,7 +1,8 @@
 ﻿
 namespace Domain.Entities
+
 {
-    public class Professor : User
+    public class Client : User
     {
         public IList<Activity> Activities { get; set; } = [];
     }

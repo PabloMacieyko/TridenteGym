@@ -1,5 +1,5 @@
-﻿using Application.Interfaces;
-using Domain.Entities;
+﻿using Application.Dto_s;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TridenteGym.Api.Controllers
@@ -16,7 +16,7 @@ namespace TridenteGym.Api.Controllers
 
         // GET -> https://IP/client/getall
         [HttpGet("GetAll")]
-        public IEnumerable<Registration> GetAll()
+        public IEnumerable<ClientDto> GetAll()
         {
             return _clientService.GetAll();
         }
@@ -24,3 +24,5 @@ namespace TridenteGym.Api.Controllers
         //
 
     }
+
+}

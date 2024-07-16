@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces
 {
-    public interface IOwnerRepository
+    public interface IAdministratorRepository
     {
         public Administrator Add(Administrator owner);
 
