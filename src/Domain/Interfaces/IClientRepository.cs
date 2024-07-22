@@ -7,9 +7,8 @@ using Domain.Entities;
 
 namespace Domain.Interfaces
 {
-    public interface IClientRepository : IRepositoryBase<Client>
+    public interface IClientRepository
     {
-        Task<List<Activity>> GetEnrolledActivitiesAsync(int clientId, CancellationToken cancellationToken = default);
-
+        ICollection<Activity> GetClientActivities(int clientId);
     }
 }

@@ -3,10 +3,8 @@ using Domain.Entities;
 
 namespace Domain.Interfaces
 {
-    public interface IActivityRepository : IRepositoryBase<Activity>
+    public interface IActivityRepository : IBaseRepository<Activity>
     {
-        Task<List<Client>> GetEnrolledClientsAsync(int activityId, CancellationToken cancellationToken = default);
-        Task<Professor> GetAssignedProfessorAsync(int activityId, CancellationToken cancellationToken = default);
-
+        Task<List<Activity>> GetActivitiesByProfessorIdAsync(int professorId, CancellationToken cancellationToken = default);
     }
 }

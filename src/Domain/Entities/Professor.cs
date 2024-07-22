@@ -2,6 +2,7 @@
 {
     public class Professor : User
     {
-        public ICollection<Activity> AssignedActivities { get; set; } = new List<Activity>();
+        // Propiedad de navegación para las actividades que enseña
+        public ICollection<Activity> Activities { get; set; } = new List<Activity>();
     }
 }

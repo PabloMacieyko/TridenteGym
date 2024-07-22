@@ -8,23 +8,17 @@ namespace Domain.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        [Required]
+        public int ActivityId { get; set; }
         [Column(TypeName = "nvarchar(100)")]
-        public string Name { get; set; } = string.Empty;
+        public string? Title { get; set; }
+        [Column(TypeName = "nvarchar(200)")]
+        public string? Description { get; set; }
+        public int Price { get; set; }
+        // Propiedad de navegación para el profesor que enseña esta actividad
+        public int ProfessorId { get; set; }
+        public Professor? Professor { get; set; }
+        // Relación uno a muchos con Enrollments
+        public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
 
-        [Required]
-        [Column(TypeName = "nvarchar(500)")]
-        public string Description { get; set; } = string.Empty;
-
-        [Required]
-        public DateTime StartTime { get; set; }
-
-        [Required]
-        public DateTime EndTime { get; set; }
-
-        public Professor AssignedProfessor { get; set; }
-
-        public ICollection<Client> EnrolledClients { get; set; } = new List<Client>();
     }
 }

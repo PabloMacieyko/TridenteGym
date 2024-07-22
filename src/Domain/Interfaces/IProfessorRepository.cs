@@ -7,8 +7,8 @@ using Domain.Entities;
 
 namespace Domain.Interfaces
 {
-    public interface IProfessorRepository : IRepositoryBase<Professor>
+    public interface IProfessorRepository
     {
-        Task<List<Activity>> GetAssignedActivitiesAsync(int professorId, CancellationToken cancellationToken = default);
+        ICollection<Client> GetClientsEnrolledInMyActivities(int professorId);
     }
 }
