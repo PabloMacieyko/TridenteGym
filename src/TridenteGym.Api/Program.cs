@@ -4,7 +4,6 @@ using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
