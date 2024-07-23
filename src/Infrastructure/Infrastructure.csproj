@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Repositories\**" />
+    <EmbeddedResource Remove="Data\Repositories\**" />
+    <None Remove="Data\Repositories\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
@@ -25,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Repositories\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>
