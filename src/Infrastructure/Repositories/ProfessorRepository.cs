@@ -31,7 +31,7 @@ namespace Infrastructure.Repositories
         }
 
         public Professor Get(int id)
-        {
+    {
             return _appDbContext.Professors.FirstOrDefault(x => x.Id == id) ?? throw new Exception("Profesor no encontrado");
         }
 
