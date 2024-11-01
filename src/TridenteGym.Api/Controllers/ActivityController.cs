@@ -18,7 +18,6 @@ namespace TridenteGym.Api.Controllers
             _activityService = activityService;
         }
 
-
         [HttpPost("CreateActivity")]
         public async Task<ActionResult<ActivityDto>> CreateActivity([FromBody] ActivityCreateRequest request)
         {
@@ -82,6 +81,5 @@ namespace TridenteGym.Api.Controllers
                 return NotFound($"{ex.Message}");
             }
         }
-
     }
 }

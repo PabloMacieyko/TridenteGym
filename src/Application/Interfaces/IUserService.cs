@@ -1,7 +1,5 @@
-
 using Application.DTOs;
 using Application.DTOs.Requests;
-
 
 namespace Application.Interfaces
 {

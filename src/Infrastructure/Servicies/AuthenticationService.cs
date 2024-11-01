@@ -24,7 +24,6 @@ namespace Infrastructure.Services
         public class AuthenticacionServiceOptions
         {
             public const string AuthenticacionService = "AuthenticacionService";
-
             public string Issuer { get; set; }
             public string Audience { get; set; }
             public string SecretForKey { get; set; }
@@ -74,6 +73,5 @@ namespace Infrastructure.Services
 
             return tokenToReturn.ToString();
         }
-
     }
 }

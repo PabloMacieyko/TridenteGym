@@ -10,7 +10,6 @@ namespace Infrastructure.Repositories
         public ClientRepository(ApplicationDbContext context) : base(context)
         {
         }
-
         public ICollection<Activity> GetClientActivities(int clientId)
         {
             var client = _appDbContext.Clients
@@ -22,6 +21,5 @@ namespace Infrastructure.Repositories
                 throw new KeyNotFoundException($"Client with ID {clientId} not found.");
             return client.Enrollments.Select(e => e.Activity).ToList();
         }
-
     }
 }

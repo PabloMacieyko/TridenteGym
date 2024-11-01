@@ -11,21 +11,17 @@ namespace TridenteGym.Api.Controllers
     [Authorize(Policy = "OwnerPolicy")]
     public class EnrollmentController : ControllerBase
     {
-
         private readonly IEnrollmentService _enrollmentService;
-
         public EnrollmentController(IEnrollmentService enrollmentService)
         {
             _enrollmentService = enrollmentService;
         }
-
 
         [HttpPost("CreateEnrollment")]
         public async Task<ActionResult<EnrollmentDto>> CreateEnrollment([FromBody] EnrollmentCreateRequest request)
         {
             return Ok(await _enrollmentService.CreateAsync(request));
         }
-
 
         [HttpGet("GetEnrollment/{id}")]
         public async Task<ActionResult> GetEnrollment([FromRoute] int id)

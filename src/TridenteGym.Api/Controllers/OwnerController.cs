@@ -12,7 +12,6 @@ namespace TridenteGym.Api.Controllers
     public class OwnerController : ControllerBase
     {
         private readonly IUserService _userService;
-
         public OwnerController(IUserService userService)
         {
             _userService = userService;
@@ -69,9 +68,6 @@ namespace TridenteGym.Api.Controllers
             {
                 return NotFound(new { Message = ex.Message });
             }
-
         }
-
-
     }
 }

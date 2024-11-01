@@ -1,5 +1,4 @@
-﻿
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure.Data;
 
@@ -8,7 +7,6 @@ namespace Infrastructure.Repositories
     public class ProfessorRepository : IProfessorRepository
     {
         private readonly ApplicationDbContext _appDbContext;
-
         public ProfessorRepository(ApplicationDbContext appdbcontex)
         {
             _appDbContext = appdbcontex;

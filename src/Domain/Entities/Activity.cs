@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
@@ -19,6 +18,5 @@ namespace Domain.Entities
         public Professor? Professor { get; set; }
         // Relación uno a muchos con Enrollments
         public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
-
     }
 }

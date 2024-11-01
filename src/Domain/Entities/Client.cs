@@ -1,6 +1,4 @@
 ﻿
-using System.Diagnostics;
-
 namespace Domain.Entities
 {
     public class Client : User

@@ -12,7 +12,6 @@ namespace Infrastructure.Repositories
         {
             _appDbContext = appDbContext;
         }
-
         public virtual async Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default)
         {
             _appDbContext.Set<T>().Add(entity);

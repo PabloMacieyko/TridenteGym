@@ -1,5 +1,4 @@
-﻿
-using Application.DTOs;
+﻿using Application.DTOs;
 using Application.DTOs.Requests;
 using Application.Interfaces;
 using Domain.Entities;
@@ -26,7 +25,7 @@ namespace Application.Services
             var dto = new EnrollmentDto();
             dto.ActivityId = enrollment.ActivityId;
             dto.ClientId = enrollment.ClientId;
-            dto.EnrollmentId = enrollment.ActivityId;
+            dto.EnrollmentId = enrollment.EnrollmentId;
 
             return dto;
         }
