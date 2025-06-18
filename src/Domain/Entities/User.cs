@@ -20,6 +20,8 @@ namespace Domain.Entities
         public string UserName { get; set; } = string.Empty;
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public UserRole Role { get; set; }
+        /// Propiedad de navegación para las actividades que enseña el profesor
+        public ICollection<Enrollment> Enrollments { get; set; } 
     }
 
     public enum UserRole

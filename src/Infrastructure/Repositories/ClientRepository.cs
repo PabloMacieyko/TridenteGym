@@ -10,16 +10,24 @@ namespace Infrastructure.Repositories
         public ClientRepository(ApplicationDbContext context) : base(context)
         {
         }
-        public ICollection<Activity> GetClientActivities(int clientId)
-        {
-            var client = _appDbContext.Clients
-                        .Include(c => c.Enrollments)
-                        .ThenInclude(a => a.Activity)
-                        .SingleOrDefault(c => c.Id == clientId);
 
-            if (client == null)
+        public async Task<List<Activity>> GetClientActivities(int clientId)
+        {
+            // Busca el usuario y valida que sea Client
+            var user = await _appDbContext.Users
+                .FirstOrDefaultAsync(u => u.Id == clientId && u.Role == UserRole.Client);
+
+            if (user == null)
                 throw new KeyNotFoundException($"Client with ID {clientId} not found.");
-            return client.Enrollments.Select(e => e.Activity).ToList();
+
+            // Busca las actividades en las que está inscripto
+            var activities = await _appDbContext.Enrollments
+                .Where(e => e.ClientId == clientId)
+                .Include(e => e.Activity) // <-- Esto es importante
+                .Select(e => e.Activity)
+                .ToListAsync();
+
+            return activities;
         }
     }
 }

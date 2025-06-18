@@ -30,7 +30,6 @@ namespace Application.Services
             var dto = new UserDto();
             dto.Id = user.Id;
             dto.Name = user.Name;
-            dto.Password = user.Password;
             dto.Email = user.Email;
             dto.UserName = user.UserName;
             dto.Role = user.Role;
@@ -58,6 +57,7 @@ namespace Application.Services
             userDto.Name = result.Name;
             userDto.Email = result.Email;
             userDto.UserName = result.UserName;
+            userDto.Role = result.Role;
 
             return userDto;
         }

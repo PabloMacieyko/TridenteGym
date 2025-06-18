@@ -18,5 +18,8 @@ namespace Domain.Entities
         public Professor? Professor { get; set; }
         // Relación uno a muchos con Enrollments
         public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
+
+        [Range(0, int.MaxValue, ErrorMessage = "AvailableSlots debe ser mayor o igual a cero.")]
+        public int AvailableSlots { get; set; }
     }
 }

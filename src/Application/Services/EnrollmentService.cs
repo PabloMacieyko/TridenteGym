@@ -9,13 +9,33 @@ namespace Application.Services
     public class EnrollmentService : IEnrollmentService
     {
         private readonly IEnrollmentRepository _repository;
-        public EnrollmentService(IEnrollmentRepository repository)
+        private readonly IActivityRepository _activityRepository;
+        private readonly IUserService _userService;
+
+        public EnrollmentService(IEnrollmentRepository repository, IActivityRepository activityRepository, IUserService userService)
         {
             _repository = repository;
+            _activityRepository = activityRepository;
+            _userService = userService;
         }
 
         public async Task<EnrollmentDto> CreateAsync(EnrollmentCreateRequest request)
         {
+            var user = await _userService.GetUserByIdAsync(request.ClientId);
+            if (user == null || user.Role != UserRole.Client)
+                throw new Exception("Solo los usuarios con rol 'Client' pueden inscribirse a actividades.");
+
+            // Obtenemos la actividad
+            var activity = await _activityRepository.GetByIdAsync(request.ActivityId);
+            if (activity == null)
+                throw new Exception("Activity not found");
+
+            if (activity.AvailableSlots <= 0)
+                throw new Exception("No hay cupos disponibles para esta actividad.");
+
+            activity.AvailableSlots--;
+            await _activityRepository.UpdateAsync(activity);
+
             var enrollment = new Enrollment();
             enrollment.ClientId = request.ClientId;
             enrollment.ActivityId = request.ActivityId;
@@ -61,14 +81,19 @@ namespace Application.Services
             return resultDto;
         }
 
-        public async Task<EnrollmentDto> UpdateAsync(EnrollmentDto enrollmentDto, int id)
+        public async Task<EnrollmentDto> UpdateAsync(UpdateEnrollmentRequest request, int id)
         {
+            // Validar que el usuario sea Client
+            var user = await _userService.GetUserByIdAsync(request.ClientId);
+            if (user == null || user.Role != UserRole.Client)
+                throw new Exception("Solo los usuarios con rol 'Client' pueden inscribirse a actividades.");
+
             var enrollment = await _repository.GetByIdAsync(id);
             if (enrollment == null)
                 throw new Exception("Enrollment not Found");
 
-            enrollment.ClientId = enrollmentDto.ClientId;
-            enrollment.ActivityId = enrollmentDto.ActivityId;
+            enrollment.ClientId = request.ClientId;
+            enrollment.ActivityId = request.ActivityId;
 
             await _repository.UpdateAsync(enrollment);
 
@@ -86,7 +111,15 @@ namespace Application.Services
             var enrollment = await _repository.GetByIdAsync(id);
             if (enrollment == null)
                 throw new Exception("Enrollment not Found");
-            
+
+            // Obtenemos la actividad
+            var activity = await _activityRepository.GetByIdAsync(enrollment.ActivityId);
+            if (activity != null)
+            {
+                activity.AvailableSlots++;
+                await _activityRepository.UpdateAsync(activity);
+            }
+
             await _repository.DeleteAsync(enrollment);
         }
     }

@@ -14,6 +14,8 @@ namespace Infrastructure.Repositories
         {
             return await _appDbContext.Activities
                 .Where(activity => activity.ProfessorId == professorId)
+                .Include(activity => activity.Enrollments)
+                    .ThenInclude(enrollment => enrollment.Client)
                 .ToListAsync(cancellationToken);
         }
     }

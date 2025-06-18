@@ -11,7 +11,7 @@ namespace Application.Interfaces
 
         Task<List<EnrollmentDto>> GetAllAsync();
 
-        Task<EnrollmentDto> UpdateAsync(EnrollmentDto enrollment, int id);
+        Task<EnrollmentDto> UpdateAsync(UpdateEnrollmentRequest request, int id);
 
         Task DeleteAsync(int id);
     }

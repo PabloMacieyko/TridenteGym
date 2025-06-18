@@ -43,11 +43,11 @@ namespace TridenteGym.Api.Controllers
         }
 
         [HttpPut("UpdateEnrollment/{id}")]
-        public async Task<ActionResult<EnrollmentDto>> UpdateEnrollment([FromBody] EnrollmentDto enrollmentDto, int id)
+        public async Task<ActionResult<EnrollmentDto>> UpdateEnrollment([FromBody] UpdateEnrollmentRequest request, int id)
         {
             try
             {
-                return Ok(await _enrollmentService.UpdateAsync(enrollmentDto, id));
+                return Ok(await _enrollmentService.UpdateAsync(request, id));
             }
             catch (Exception ex)
             {

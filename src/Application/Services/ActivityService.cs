@@ -9,18 +9,26 @@ namespace Application.Services
     public class ActivityService : IActivityService
     {
         private readonly IActivityRepository _activityRepositiry;
-        public ActivityService(IActivityRepository activityRepository)
+        private readonly IProfessorService _professorService;
+        public ActivityService(IActivityRepository activityRepository, IProfessorService professorService)
         {
             _activityRepositiry = activityRepository;
+            _professorService = professorService;
         }
 
         public async Task<ActivityDto> CreateAsync(ActivityCreateRequest request)
         {
+            // Validar que el profesor exista
+            var professor = await _professorService.GetByIdAsync(request.ProfessorId);
+            if (professor == null)
+                throw new Exception("El profesor especificado no existe.");
+
             var activity = new Activity();
             activity.Title = request.Title;
             activity.Description = request.Description;
             activity.ProfessorId = request.ProfessorId;
             activity.Price = request.Price;
+            activity.AvailableSlots = request.AvailableSlots;
 
             _ = await _activityRepositiry.CreateAsync(activity);
 
@@ -30,6 +38,7 @@ namespace Application.Services
             dto.Description = activity.Description;
             dto.ProfessorId = activity.ProfessorId;
             dto.Price = activity.Price;
+            dto.AvailableSlots = activity.AvailableSlots;
 
             return dto;
         }
@@ -46,6 +55,7 @@ namespace Application.Services
             activityDto.Description = result.Description;
             activityDto.ProfessorId= result.ProfessorId;
             activityDto.Price = result.Price;
+            activityDto.AvailableSlots = result.AvailableSlots;
             
             return activityDto;
         }
@@ -63,6 +73,7 @@ namespace Application.Services
                     Description = activity.Description,
                     Price = activity.Price,
                     ProfessorId = activity.ProfessorId,
+                    AvailableSlots = activity.AvailableSlots
                 };
                 resultDto.Add(activityDto);
             }
@@ -71,6 +82,11 @@ namespace Application.Services
 
         public async Task<ActivityDto> UpdateAsync( ActivityDto activityDto, int id)
         {
+            // Validar que el profesor exista
+            var professor = await _professorService.GetByIdAsync(activityDto.ProfessorId);
+            if (professor == null)
+                throw new Exception("El profesor especificado no existe.");
+
             var activity = await _activityRepositiry.GetByIdAsync(id);
             if (activity == null)
                 throw new Exception("Activity not found");
@@ -79,6 +95,10 @@ namespace Application.Services
             activity.Description = activityDto.Description;
             activity.Price = activityDto.Price;
             activity.ProfessorId = activityDto.ProfessorId;
+
+            if (activityDto.AvailableSlots < 0)
+                throw new Exception("AvailableSlots no puede ser negativo.");
+            activity.AvailableSlots = activityDto.AvailableSlots;
 
             await _activityRepositiry.UpdateAsync(activity);
 
@@ -89,6 +109,7 @@ namespace Application.Services
                 Description = activity.Description,
                 Price = activity.Price,
                 ProfessorId = activity.ProfessorId,
+                AvailableSlots=activity.AvailableSlots
             };
 
             return dto;

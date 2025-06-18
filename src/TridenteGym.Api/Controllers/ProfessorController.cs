@@ -21,6 +21,13 @@ namespace TridenteGym.Api.Controllers
         {
             try
             {
+                // Validar que el ID corresponde a un profesor existente
+                var professor = await _profesService.GetByIdAsync(professorId);
+                if (professor == null)
+                {
+                    return BadRequest("El ID proporcionado no corresponde a un profesor.");
+                }
+
                 var clients = await _profesService.GetClientsEnrolledInMyActivities(professorId);
                 if (clients == null || !clients.Any())
                 {

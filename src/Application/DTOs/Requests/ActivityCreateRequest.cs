@@ -11,6 +11,7 @@ namespace Application.DTOs.Requests
         [Required]
         public int ProfessorId { get; set; }
         public int Price { get; set; }
+        public int AvailableSlots { get; set; }
 
     }
 }

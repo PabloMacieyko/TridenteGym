@@ -42,20 +42,31 @@ namespace TridenteGym.Api.Controllers
         }
 
         [HttpGet("GetAllActivities")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<ActivityDto>>> GetAllActivities()
         {
             return Ok(await _activityService.GetAllAsync());
         }
 
         [HttpPut("UpdateActivity/{id}")]
-        public async Task<ActionResult<ActivityDto>> UpdateActivity([FromBody] ActivityDto activityDto, int id)
+        public async Task<ActionResult<ActivityDto>> UpdateActivity([FromBody] UpdateActivityRequest request, int id)
         {
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
             if (userRole != "Owner")
                 return Forbid();
 
             try
-            {
+            { 
+                var activityDto = new ActivityDto
+                {
+                    ActivityId = id, // El id viene por la ruta
+                    Title = request.Title,
+                    Description = request.Description,
+                    ProfessorId = request.ProfessorId,
+                    Price = request.Price,
+                    AvailableSlots = request.AvailableSlots
+                };
+
                 return Ok(await _activityService.UpdateAsync(activityDto, id));
             }
             catch (Exception ex)

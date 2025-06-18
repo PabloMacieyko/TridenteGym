@@ -12,7 +12,7 @@ using static Infrastructure.Services.AuthenticationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container. 
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -42,8 +42,8 @@ builder.Services.AddSwaggerGen(setupAction =>
     });
 });
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-builder.Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("Infrastructure")));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(
+builder.Configuration["ConnectionStrings:DBConnectionString"]));
 
 builder.Services
     .AddAuthentication("Bearer") //"Bearer" es el tipo de auntenticación que tenemos que elegir después en PostMan para pasarle el token
@@ -63,6 +63,7 @@ builder.Services
 
 builder.Services.AddAuthorization(options =>
 {
+    //options.AddPolicy("OwnerOrProfessorPolicy", policy => policy.RequireRole("Owner", "Professor"));
     options.AddPolicy("OwnerPolicy", policy => policy.RequireRole("Owner"));
     options.AddPolicy("ProfessorPolicy", policy => policy.RequireRole("Professor"));
     options.AddPolicy("ClientPolicy", policy => policy.RequireRole("Client"));
@@ -84,6 +85,8 @@ builder.Services.Configure<AuthenticacionServiceOptions>(
     builder.Configuration.GetSection(AuthenticacionServiceOptions.AuthenticacionService));
 IServiceCollection serviceCollection = builder.Services.AddScoped<ICustomAuthentication, Infrastructure.Services.AuthenticationService>();
 #endregion
+
+
 
 var app = builder.Build();
 
