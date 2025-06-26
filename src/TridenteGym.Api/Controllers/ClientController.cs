@@ -12,21 +12,19 @@ namespace TridenteGym.Api.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
-        private readonly IUserService _userService;
 
-        public ClientController(IClientService clientService, IUserService userService)
+        public ClientController(IClientService clientService)
         {
             _clientService = clientService;
-            _userService = userService;
         }
 
         [HttpGet("{clientId}/GetAllActivitiesEnrollments")]
         public async Task<ActionResult<List<ActivityDto>>> GetAllActivitiesEnrollments([FromRoute] int clientId)
         {
             // Validar que el usuario sea Client
-            var user = await _userService.GetUserByIdAsync(clientId);
-            if (user == null || user.Role != UserRole.Client)
-                return BadRequest("El ID proporcionado no corresponde a un cliente.");
+            //var user = await _userService.GetUserByIdAsync(clientId);
+            //if (user == null || user.Role != UserRole.Client)
+            //    return BadRequest("El ID proporcionado no corresponde a un cliente.");
 
             try
             {

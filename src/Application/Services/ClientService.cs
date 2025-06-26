@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using Domain.Entities;
 using Domain.Interfaces;
 
 namespace Application.Services
@@ -7,13 +8,19 @@ namespace Application.Services
     public class ClientService : IClientService
     {
         private readonly IClientRepository _clientService;
-        public ClientService(IClientRepository clientService)
+        private readonly IUserService _userService;
+        public ClientService(IClientRepository clientService, IUserService userService)
         {
             _clientService = clientService;
+            _userService = userService;
         }
 
         public async Task<List<ActivityDto>> GetClientActivities(int clientId)
         {
+            var user = await _userService.GetUserByIdAsync(clientId);
+            if (user == null || user.Role != UserRole.Client)
+                throw new Exception("The ID provided does not correspond to a client.");
+
             var activities = await _clientService.GetClientActivities(clientId);
             var activitiesDto = new List<ActivityDto>();
             foreach (var activity in activities)

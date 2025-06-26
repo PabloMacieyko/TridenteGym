@@ -21,10 +21,6 @@ namespace TridenteGym.Api.Controllers
         [HttpPost("CreateActivity")]
         public async Task<ActionResult<ActivityDto>> CreateActivity([FromBody] ActivityCreateRequest request)
         {
-            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
-            if (userRole != "Owner")
-                return Forbid();
-
             return Ok(await _activityService.CreateAsync(request));
         }
 
@@ -51,9 +47,6 @@ namespace TridenteGym.Api.Controllers
         [HttpPut("UpdateActivity/{id}")]
         public async Task<ActionResult<ActivityDto>> UpdateActivity([FromBody] UpdateActivityRequest request, int id)
         {
-            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
-            if (userRole != "Owner")
-                return Forbid();
 
             try
             { 
@@ -78,9 +71,9 @@ namespace TridenteGym.Api.Controllers
         [HttpDelete("DeleteActivity/{id}")]
         public async Task<ActionResult> DeleteActivity([FromRoute] int id)
         {
-            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
-            if (userRole != "Owner")
-                return Forbid();
+            //var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            //if (userRole != "Owner")
+            //    return Forbid();
 
             try
             {

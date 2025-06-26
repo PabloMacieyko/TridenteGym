@@ -9,10 +9,12 @@ namespace Domain.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
         [Column(TypeName = "nvarchar(100)")]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty; //string.Empty para que sea vacio y nunca null
         [Column(TypeName = "nvarchar(100)")]
         public string Email { get; set; } = string.Empty;
+        [Required]
         [Column(TypeName = "nvarchar(20)")]
         public string Password { get; set; } = string.Empty;
         [Required]

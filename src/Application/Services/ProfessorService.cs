@@ -24,15 +24,13 @@ public class ProfessorService : IProfessorService
         {
             Id = user.Id,
             Name = user.Name,
-            Email = user.Email,
             UserName = user.UserName,
-            Password = user.Password
         };
     }
 
     public async Task<List<ClientDto>> GetClientsEnrolledInMyActivities(int professorId)
     {
-        // Validar que el usuario es un profesor usando el método correcto
+        // Validar que el usuario es un profesor 
         var professor = await _userRepository.GetByIdAsync(professorId);
         if (professor == null || professor.Role != UserRole.Professor)
         {

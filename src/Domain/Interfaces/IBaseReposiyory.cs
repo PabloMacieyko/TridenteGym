@@ -11,3 +11,4 @@ namespace Domain.Interfaces
         Task<int> SaveChangeAsync(CancellationToken cancellationToken = default);
     }
 }
+// es una interfaz genérica de repositorio que define los métodos básicos para realizar operaciones 

@@ -23,7 +23,7 @@ namespace Infrastructure.Repositories
             // Busca las actividades en las que está inscripto
             var activities = await _appDbContext.Enrollments
                 .Where(e => e.ClientId == clientId)
-                .Include(e => e.Activity) // <-- Esto es importante
+                .Include(e => e.Activity) // <-- Trae la informacion de la actividad relacionada
                 .Select(e => e.Activity)
                 .ToListAsync();
 

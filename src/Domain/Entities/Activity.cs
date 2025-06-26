@@ -8,6 +8,7 @@ namespace Domain.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ActivityId { get; set; }
+        [Required]
         [Column(TypeName = "nvarchar(100)")]
         public string? Title { get; set; }
         [Column(TypeName = "nvarchar(200)")]

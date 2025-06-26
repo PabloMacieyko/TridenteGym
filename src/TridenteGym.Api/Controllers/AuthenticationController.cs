@@ -9,7 +9,7 @@ namespace TridenteGym.Api.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration; //lee la configuración de appsettings.json
         private readonly ICustomAuthentication _customAuthentication;
 
         public AuthenticationController(IConfiguration configuration, ICustomAuthentication customAuthentication)
@@ -28,7 +28,7 @@ namespace TridenteGym.Api.Controllers
             }
             catch (NotAllowedException ex)
             {
-                return Unauthorized(ex.Message);
+                return BadRequest(new { Message = ex.Message });
             }
             catch (Exception ex)
             {

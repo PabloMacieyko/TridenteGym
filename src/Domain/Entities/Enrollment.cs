@@ -11,7 +11,7 @@ namespace Domain.Entities
 
         public int ActivityId { get; set; }
 
-        public Activity Activity { get; set; }
+        public Activity Activity { get; set; } // accede a los datos de la actividad
 
         public int ClientId { get; set; }
         public User Client { get; set; }

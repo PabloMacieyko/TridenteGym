@@ -12,7 +12,7 @@ namespace Infrastructure.Repositories
         {
             _appDbContext = appDbContext;
         }
-        public virtual async Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default) //T entity = entidad a guardar en la bd
         {
             _appDbContext.Set<T>().Add(entity);
             await _appDbContext.SaveChangesAsync(cancellationToken);

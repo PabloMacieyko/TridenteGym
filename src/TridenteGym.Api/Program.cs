@@ -101,6 +101,17 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
+app.Use(async (context, next) => //middleware de manejo de errores de no logeados 
+{
+    await next();
+
+    if (context.Response.StatusCode == 401)
+    {
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsync("{\"message\": \"You need to log in\"}");
+    }
+});
+
 app.UseAuthorization();
 
 app.MapControllers();

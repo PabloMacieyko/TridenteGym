@@ -17,6 +17,10 @@ namespace Application.Services
 
         public async Task<UserDto> CreateAsync(CreateUserRequest request)
         {
+            var existingUser = await _userRepository.GetUserByUserNameAsync(request.UserName);
+            if (existingUser != null)
+                throw new Exception("The username is already in use.");
+
             var user = new User();
 
             user.Name = request.Name;
@@ -86,6 +90,10 @@ namespace Application.Services
             var user = await _userRepository.GetByIdAsync(id);
             if (user == null)
                 throw new Exception("User not found");
+
+            var existingUser = await _userRepository.GetUserByUserNameAsync(request.UserName);
+            if (existingUser != null && existingUser.Id != id)
+                throw new Exception("The username is already in use.");
 
             user.Name = request.Name;
             user.Email = request.Email;

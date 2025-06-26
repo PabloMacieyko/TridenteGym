@@ -23,7 +23,7 @@ namespace Application.Services
         {
             var user = await _userService.GetUserByIdAsync(request.ClientId);
             if (user == null || user.Role != UserRole.Client)
-                throw new Exception("Solo los usuarios con rol 'Client' pueden inscribirse a actividades.");
+                throw new Exception("Only users with the 'Client' role can register for activities.");
 
             // Obtenemos la actividad
             var activity = await _activityRepository.GetByIdAsync(request.ActivityId);
@@ -31,7 +31,11 @@ namespace Application.Services
                 throw new Exception("Activity not found");
 
             if (activity.AvailableSlots <= 0)
-                throw new Exception("No hay cupos disponibles para esta actividad.");
+                throw new Exception("There are no places available for this activity.");
+
+            var existingEnrollments = await _repository.GetAllAsync();
+            if (existingEnrollments.Any(e => e.ClientId == request.ClientId && e.ActivityId == request.ActivityId))
+                    throw new Exception("The client is already enrolled in this activity.");
 
             activity.AvailableSlots--;
             await _activityRepository.UpdateAsync(activity);
@@ -86,7 +90,7 @@ namespace Application.Services
             // Validar que el usuario sea Client
             var user = await _userService.GetUserByIdAsync(request.ClientId);
             if (user == null || user.Role != UserRole.Client)
-                throw new Exception("Solo los usuarios con rol 'Client' pueden inscribirse a actividades.");
+                throw new Exception("Only users with the 'Client' role can register for activities");
 
             var enrollment = await _repository.GetByIdAsync(id);
             if (enrollment == null)

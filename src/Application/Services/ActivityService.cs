@@ -21,7 +21,13 @@ namespace Application.Services
             // Validar que el profesor exista
             var professor = await _professorService.GetByIdAsync(request.ProfessorId);
             if (professor == null)
-                throw new Exception("El profesor especificado no existe.");
+                throw new Exception("Incorrect teacher ID.");
+            
+            if (request.AvailableSlots < 0)
+                throw new Exception("AvailableSlots can't be negative.");
+
+            if (request.Price < 0)
+                throw new Exception("Price can't be negative.");
 
             var activity = new Activity();
             activity.Title = request.Title;
@@ -30,9 +36,9 @@ namespace Application.Services
             activity.Price = request.Price;
             activity.AvailableSlots = request.AvailableSlots;
 
-            _ = await _activityRepositiry.CreateAsync(activity);
+            _ = await _activityRepositiry.CreateAsync(activity); //guarda en la base de datos
 
-            var dto = new ActivityDto();
+            var dto = new ActivityDto(); //solo devuelve los datos necesarios
             dto.ActivityId = activity.ActivityId;
             dto.Title = activity.Title;
             dto.Description = activity.Description;
@@ -85,7 +91,7 @@ namespace Application.Services
             // Validar que el profesor exista
             var professor = await _professorService.GetByIdAsync(activityDto.ProfessorId);
             if (professor == null)
-                throw new Exception("El profesor especificado no existe.");
+                throw new Exception("Incorrect teacher ID");
 
             var activity = await _activityRepositiry.GetByIdAsync(id);
             if (activity == null)
@@ -97,7 +103,7 @@ namespace Application.Services
             activity.ProfessorId = activityDto.ProfessorId;
 
             if (activityDto.AvailableSlots < 0)
-                throw new Exception("AvailableSlots no puede ser negativo.");
+                throw new Exception("AvailableSlots can't be negative.");
             activity.AvailableSlots = activityDto.AvailableSlots;
 
             await _activityRepositiry.UpdateAsync(activity);
@@ -125,3 +131,4 @@ namespace Application.Services
         }
     }
 }
+

@@ -42,7 +42,7 @@ namespace Infrastructure.Repositories
 
         public ICollection<Client> GetClientsEnrolledInMyActivities(int professorId)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); 
         }
 
         public Professor Update(Professor professor, int id)
